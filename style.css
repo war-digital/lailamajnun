@@ -1072,31 +1072,64 @@ html, body {
    SECTION 1 (AR-RUM) EXIT ANIMATIONS
    ========================================================================== */
 .exit-arrum .frame-overlay {
-  animation: none; /* Reset paintFrame/floatFrame animations */
-  transform: scale(1.08);
-  opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+  animation: arrumFrameExit 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .exit-arrum .arrum-crest {
-  animation: none; /* Reset revealCrest animation */
-  transform: translateY(-40px);
-  opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+  animation: arrumCrestExit 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .exit-arrum .arrum-text-wrapper {
-  animation: none; /* Reset revealVerse animation */
-  transform: scale(0.95);
-  opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+  animation: arrumVerseExit 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .exit-arrum .arrum-citation {
-  animation: none; /* Reset revealCitation animation */
-  transform: translateY(25px);
-  opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+  animation: arrumCitationExit 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes arrumFrameExit {
+  0% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.08);
+    opacity: 0;
+  }
+}
+
+@keyframes arrumCrestExit {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+}
+
+@keyframes arrumVerseExit {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes arrumCitationExit {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(25px);
+    opacity: 0;
+  }
 }
 
 /* ==========================================================================
@@ -1297,30 +1330,37 @@ html, body {
   0% {
     opacity: 0;
     transform: translateX(calc(min(90vw, 396px) - 100% - 30px)) translateY(0) scaleX(1);
+    animation-timing-function: linear;
   }
   15% {
     opacity: 1;
     transform: translateX(calc((min(90vw, 396px) - 100% - 30px) * 0.8)) translateY(-8px) scaleX(1);
+    animation-timing-function: linear;
   }
   30% {
     opacity: 1;
     transform: translateX(calc((min(90vw, 396px) - 100% - 30px) * 0.6)) translateY(0) scaleX(1);
+    animation-timing-function: linear;
   }
   45% {
     opacity: 1;
     transform: translateX(calc((min(90vw, 396px) - 100% - 30px) * 0.4)) translateY(-8px) scaleX(1);
+    animation-timing-function: linear;
   }
   60% {
     opacity: 1;
     transform: translateX(calc((min(90vw, 396px) - 100% - 30px) * 0.2)) translateY(0) scaleX(1);
+    animation-timing-function: linear;
   }
   75% {
     opacity: 1;
     transform: translateX(0) translateY(0) scaleX(1);
+    animation-timing-function: ease-in-out;
   }
   85% {
     opacity: 1;
     transform: translateX(0) translateY(0) scaleX(-0.1); /* Mirroring flip squeeze */
+    animation-timing-function: ease-in-out;
   }
   95%, 100% {
     opacity: 1;
@@ -1332,30 +1372,37 @@ html, body {
   0% {
     opacity: 0;
     transform: translateX(calc(100% + 30px - min(90vw, 396px))) translateY(0) scaleX(1);
+    animation-timing-function: linear;
   }
   15% {
     opacity: 1;
     transform: translateX(calc((100% + 30px - min(90vw, 396px)) * 0.8)) translateY(-8px) scaleX(1);
+    animation-timing-function: linear;
   }
   30% {
     opacity: 1;
     transform: translateX(calc((100% + 30px - min(90vw, 396px)) * 0.6)) translateY(0) scaleX(1);
+    animation-timing-function: linear;
   }
   45% {
     opacity: 1;
     transform: translateX(calc((100% + 30px - min(90vw, 396px)) * 0.4)) translateY(-8px) scaleX(1);
+    animation-timing-function: linear;
   }
   60% {
     opacity: 1;
     transform: translateX(calc((100% + 30px - min(90vw, 396px)) * 0.2)) translateY(0) scaleX(1);
+    animation-timing-function: linear;
   }
   75% {
     opacity: 1;
     transform: translateX(0) translateY(0) scaleX(1);
+    animation-timing-function: ease-in-out;
   }
   85% {
     opacity: 1;
     transform: translateX(0) translateY(0) scaleX(-0.1); /* Mirroring flip squeeze */
+    animation-timing-function: ease-in-out;
   }
   95%, 100% {
     opacity: 1;
@@ -1484,10 +1531,19 @@ html, body {
 }
 
 .exit-couple .couple-frame-overlay {
-  animation: none; /* Reset paintFrame animation so it can translate up on exit */
-  transform: translateY(-100%);
-  opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease;
+  animation: coupleFrameExit 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes coupleFrameExit {
+  0% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
 }
 
 .exit-couple .couple-decor-wrapper {
@@ -1500,31 +1556,64 @@ html, body {
    SECTION 1 (AR-RUM) EXIT-BACK ANIMATIONS (Slide Down)
    ========================================================================== */
 .exit-arrum-back .frame-overlay {
-  animation: none; /* Reset paintFrame/floatFrame animations */
-  transform: translateY(100%);
-  opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease;
+  animation: arrumFrameExitBack 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
 .exit-arrum-back .arrum-crest {
-  animation: none; /* Reset revealCrest animation */
-  transform: translateY(30px);
-  opacity: 0;
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  animation: arrumCrestExitBack 0.8s ease forwards;
 }
 
 .exit-arrum-back .arrum-text-wrapper {
-  animation: none; /* Reset revealVerse animation */
-  transform: translateY(30px) scale(0.98);
-  opacity: 0;
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  animation: arrumVerseExitBack 0.8s ease forwards;
 }
 
 .exit-arrum-back .arrum-citation {
-  animation: none; /* Reset revealCitation animation */
-  transform: translateY(30px);
-  opacity: 0;
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  animation: arrumCitationExitBack 0.8s ease forwards;
+}
+
+@keyframes arrumFrameExitBack {
+  0% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes arrumCrestExitBack {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+}
+
+@keyframes arrumVerseExitBack {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(30px) scale(0.98);
+    opacity: 0;
+  }
+}
+
+@keyframes arrumCitationExitBack {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
 }
 
 /* Center Decor Ornament (ornamen7.png) for Section 2 */
@@ -1566,8 +1655,473 @@ html, body {
 
 /* Scale down the center ornament on exit */
 .exit-couple .couple-center-decor {
-  animation: none; /* Stops the reveal animation so the transition is not overridden */
-  transform: translate(-50%, -50%) scale(0);
+  animation: coupleCenterDecorExit 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes coupleCenterDecorExit {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   SECTION 3 (SCHEDULE SCREEN)
+   ========================================================================== */
+#schedule-screen {
+  background-image: url('bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 14; /* Higher than couple details screen */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#schedule-screen.active-schedule {
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+/* ornamen10.png transparent frame overlay */
+.schedule-frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('ornamen10.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  z-index: 5;
+  clip-path: polygon(50% 50%, 50% 0, 50% 0, 50% 0, 50% 0, 50% 0); /* Hidden initially */
+}
+
+/* Clockwise sweep drawing animation & Beat pulse */
+#schedule-screen.active-schedule:not(.exit-schedule-back) .schedule-frame-overlay {
+  animation: paintFrame 2.8s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+             beatFrame 0.75s ease-in-out infinite 4.2s;
+}
+
+/* Content Container */
+.schedule-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+  height: 90%;
+  z-index: 6;
+  position: relative;
+  padding: 5px 0;
+}
+
+/* Header */
+.schedule-title {
+  font-family: var(--font-serif);
+  font-size: 2.0rem;
+  letter-spacing: 0.1rem;
+  color: var(--color-maroon-bright);
+  text-shadow: 0 1px 1.5px rgba(255, 255, 255, 0.95), 0 2px 4px rgba(88, 17, 26, 0.15);
+  margin-bottom: 15px;
+  text-align: center;
   opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+/* Vertically Centered Scrollable Cards Container */
+.schedule-cards {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  padding: 10px 5px 30px 5px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Spacing between card wrappers */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.schedule-cards::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome/Safari */
+}
+
+/* Card Animation Wrapper */
+.card-anim-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* Event Cards basic layout */
+.schedule-card {
+  position: relative;
+  width: 280px;
+  height: 165px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 20px 22px; /* Balanced padding for cropped ornamen6.png */
+  background-image: url('ornamen6.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Staggered offsets and slight rotations to match user image */
+.mappacci-card {
+  transform: translateX(15px) rotate(1.5deg);
+}
+
+.akad-card {
+  transform: translateX(-15px) rotate(-1.5deg);
+}
+
+.resepsi-card {
+  transform: translateX(15px) rotate(1deg);
+}
+
+/* Card Typography & Content */
+.card-content {
+  color: var(--color-maroon-dark);
+  text-align: center;
+  width: 100%;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.95);
+}
+
+.card-event-title {
+  font-family: var(--font-cursive);
+  font-size: 1.7rem;
+  font-weight: 500;
+  margin-bottom: 2px;
+  line-height: 1.1;
+  color: var(--color-maroon-base);
+}
+
+.card-date {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: 0.01rem;
+  line-height: 1.2;
+}
+
+.card-time, .card-location {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-bottom: 3px;
+  line-height: 1.3;
+  text-align: center;
+  display: block;
+}
+
+.card-time i, .card-location i {
+  font-size: 0.78rem;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+/* Location Map Buttons */
+.card-map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 10px;
+  margin-top: 4px;
+  box-shadow: 0 2px 5px rgba(88, 17, 26, 0.15);
+  background: linear-gradient(135deg, var(--color-maroon-light) 0%, var(--color-maroon-base) 100%);
+  color: var(--color-text-gold);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card-map-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(88, 17, 26, 0.25);
+}
+
+.card-map-btn:active {
+  transform: translateY(0);
+}
+
+/* Media query for screens with height under 720px to scale layout down slightly */
+@media (max-height: 720px) {
+  .schedule-card {
+    width: 240px;
+    height: 140px;
+    padding: 16px 18px; /* Balanced padding for cropped ornamen6.png on small screens */
+  }
+  
+  .card-event-title {
+    font-size: 1.45rem;
+  }
+  
+  .card-date {
+    font-size: 0.78rem;
+    margin-bottom: 2px;
+  }
+  
+  .card-time, .card-location {
+    font-size: 0.65rem;
+    margin-bottom: 2px;
+  }
+  
+  .card-map-btn {
+    padding: 4px 10px;
+    font-size: 0.58rem;
+    margin-top: 2px;
+  }
+}
+
+/* Entrance & Beat Animations triggers */
+#schedule-screen.active-schedule:not(.exit-schedule-back) .animate-schedule-header {
+  animation: revealScheduleHeader 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.5s forwards,
+             beatTitle 0.75s ease-in-out infinite 4.2s;
+}
+
+.active-schedule .animate-card-1 {
+  animation: slideInTopLeft 1.5s cubic-bezier(0.19, 1, 0.22, 1) 1.8s forwards;
+}
+
+.active-schedule .animate-card-2 {
+  animation: spinInRight 1.6s cubic-bezier(0.19, 1, 0.22, 1) 2.2s forwards;
+}
+
+.active-schedule .animate-card-3 {
+  animation: bounceInBottomRight 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.6s forwards;
+}
+
+#schedule-screen.active-schedule:not(.exit-schedule-back) .mappacci-card {
+  animation: beatMappacci 0.75s ease-in-out infinite 4.2s;
+}
+
+#schedule-screen.active-schedule:not(.exit-schedule-back) .akad-card {
+  animation: beatAkad 0.75s ease-in-out infinite 4.2s;
+}
+
+#schedule-screen.active-schedule:not(.exit-schedule-back) .resepsi-card {
+  animation: beatResepsi 0.75s ease-in-out infinite 4.2s;
+}
+
+@keyframes beatMappacci {
+  0%, 100% {
+    transform: translateX(15px) rotate(1.5deg) scale(1);
+  }
+  25% {
+    transform: translateX(15px) rotate(1.5deg) scale(1.04);
+  }
+  45% {
+    transform: translateX(15px) rotate(1.5deg) scale(0.98);
+  }
+  60% {
+    transform: translateX(15px) rotate(1.5deg) scale(1.02);
+  }
+}
+
+@keyframes beatAkad {
+  0%, 100% {
+    transform: translateX(-15px) rotate(-1.5deg) scale(1);
+  }
+  25% {
+    transform: translateX(-15px) rotate(-1.5deg) scale(1.04);
+  }
+  45% {
+    transform: translateX(-15px) rotate(-1.5deg) scale(0.98);
+  }
+  60% {
+    transform: translateX(-15px) rotate(-1.5deg) scale(1.02);
+  }
+}
+
+@keyframes beatResepsi {
+  0%, 100% {
+    transform: translateX(15px) rotate(1deg) scale(1);
+  }
+  25% {
+    transform: translateX(15px) rotate(1deg) scale(1.04);
+  }
+  45% {
+    transform: translateX(15px) rotate(1deg) scale(0.98);
+  }
+  60% {
+    transform: translateX(15px) rotate(1deg) scale(1.02);
+  }
+}
+
+@keyframes beatTitle {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.05);
+  }
+  45% {
+    transform: scale(0.96);
+  }
+  60% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes beatFrame {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.015);
+  }
+  45% {
+    transform: scale(0.995);
+  }
+  60% {
+    transform: scale(1.005);
+  }
+}
+
+/* Keyframes */
+@keyframes revealScheduleHeader {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInTopLeft {
+  0% {
+    opacity: 0;
+    transform: translate(-120%, -120%) rotate(-35deg) scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0) rotate(0) scale(1);
+  }
+}
+
+@keyframes spinInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(150%) rotate(180deg) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0) scale(1);
+  }
+}
+
+@keyframes bounceInBottomRight {
+  0% {
+    opacity: 0;
+    transform: translate(120%, 120%) rotate(35deg) scale(0.7);
+  }
+  70% {
+    transform: translate(-10px, -10px) rotate(-3deg) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0) rotate(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   SECTION 3 (SCHEDULE) EXIT-BACK ANIMATIONS
+   ========================================================================== */
+.exit-schedule-back .animate-schedule-header {
+  animation: scheduleHeaderExitBack 0.8s ease forwards;
+}
+
+.exit-schedule-back .animate-card-1 {
+  animation: card1ExitBack 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.exit-schedule-back .animate-card-2 {
+  animation: card2ExitBack 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.exit-schedule-back .animate-card-3 {
+  animation: card3ExitBack 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.exit-schedule-back .schedule-frame-overlay {
+  animation: scheduleFrameExitBack 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes scheduleFrameExitBack {
+  0% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes scheduleHeaderExitBack {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+}
+
+@keyframes card1ExitBack {
+  0% {
+    transform: translate(0) rotate(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-150%, 150%) rotate(-45deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes card2ExitBack {
+  0% {
+    transform: translateX(0) rotate(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(150%) rotate(90deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes card3ExitBack {
+  0% {
+    transform: translate(0) rotate(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(150%, -150%) rotate(45deg) scale(0.5);
+    opacity: 0;
+  }
 }

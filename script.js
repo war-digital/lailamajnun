@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const guestNameElement = document.getElementById('guest-name');
   const arrumScreen = document.getElementById('arrum-screen');
   const coupleScreen = document.getElementById('couple-screen');
+  const scheduleScreen = document.getElementById('schedule-screen');
   
   let isDraggingHandle = false;
   let isDraggingScreen = false;
@@ -378,6 +379,54 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 800);
   }
 
+  // 4. Section 2 (Couple Details) -> Section 3 (Schedule) (Move Forward)
+  function triggerCoupleExit() {
+    if (isTransitioningCouple) return;
+    isTransitioningCouple = true;
+
+    // Trigger Section 2 exit animations
+    coupleScreen.classList.add('exit-couple');
+
+    setTimeout(() => {
+      // Hide Section 2
+      coupleScreen.classList.add('hidden-screen');
+      coupleScreen.classList.remove('active-couple');
+      coupleScreen.classList.remove('exit-couple');
+
+      // Show Section 3
+      scheduleScreen.classList.remove('hidden-screen');
+      void scheduleScreen.offsetWidth; // Force reflow
+      scheduleScreen.classList.add('active-schedule');
+
+      isTransitioningCouple = false;
+    }, 800);
+  }
+
+  let isTransitioningSchedule = false;
+
+  // 5. Section 3 (Schedule) -> Section 2 (Couple Details) (Move Backward)
+  function triggerScheduleExitBack() {
+    if (isTransitioningSchedule) return;
+    isTransitioningSchedule = true;
+
+    // Trigger Section 3 exit-back animations
+    scheduleScreen.classList.add('exit-schedule-back');
+
+    setTimeout(() => {
+      // Hide Section 3
+      scheduleScreen.classList.add('hidden-screen');
+      scheduleScreen.classList.remove('active-schedule');
+      scheduleScreen.classList.remove('exit-schedule-back');
+
+      // Show Section 2
+      coupleScreen.classList.remove('hidden-screen');
+      void coupleScreen.offsetWidth;
+      coupleScreen.classList.add('active-couple');
+
+      isTransitioningSchedule = false;
+    }, 800);
+  }
+
   // --- Section 1 (Ar-Rum) Interaction Listeners ---
   arrumScreen.addEventListener('wheel', (e) => {
     if (e.deltaY > 0) {
@@ -403,7 +452,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Section 2 (Couple Details) Interaction Listeners ---
   coupleScreen.addEventListener('wheel', (e) => {
-    if (e.deltaY < 0) {
+    if (e.deltaY > 0) {
+      triggerCoupleExit(); // Scroll down -> Go forward
+    } else if (e.deltaY < 0) {
       triggerCoupleExitBack(); // Scroll up -> Go backward
     }
   }, { passive: true });
@@ -415,8 +466,34 @@ document.addEventListener('DOMContentLoaded', () => {
   coupleScreen.addEventListener('touchend', (e) => {
     const touchEndY = e.changedTouches[0].clientY;
     const diffY = touchStartCoupleY - touchEndY;
-    if (diffY < -50) {
+    if (diffY > 50) {
+      triggerCoupleExit(); // Swipe up -> Go forward
+    } else if (diffY < -50) {
       triggerCoupleExitBack(); // Swipe down -> Go backward
+    }
+  }, { passive: true });
+
+  // --- Section 3 (Schedule) Interaction Listeners ---
+  const scheduleCardsContainer = document.querySelector('.schedule-cards');
+  let touchStartScheduleY = 0;
+
+  scheduleScreen.addEventListener('touchstart', (e) => {
+    touchStartScheduleY = e.touches[0].clientY;
+  }, { passive: true });
+
+  scheduleScreen.addEventListener('touchend', (e) => {
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffY = touchStartScheduleY - touchEndY;
+    // Go backward if swiping down AND the cards list is scrolled to the top
+    if (diffY < -50 && scheduleCardsContainer.scrollTop === 0) {
+      triggerScheduleExitBack(); // Swipe down -> Go backward
+    }
+  }, { passive: true });
+
+  scheduleScreen.addEventListener('wheel', (e) => {
+    // Go backward if scrolling up AND the cards list is scrolled to the top
+    if (e.deltaY < 0 && scheduleCardsContainer.scrollTop === 0) {
+      triggerScheduleExitBack(); // Scroll up -> Go backward
     }
   }, { passive: true });
 });
