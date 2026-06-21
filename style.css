@@ -1072,24 +1072,28 @@ html, body {
    SECTION 1 (AR-RUM) EXIT ANIMATIONS
    ========================================================================== */
 .exit-arrum .frame-overlay {
+  animation: none; /* Reset paintFrame/floatFrame animations */
   transform: scale(1.08);
   opacity: 0;
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
 }
 
 .exit-arrum .arrum-crest {
+  animation: none; /* Reset revealCrest animation */
   transform: translateY(-40px);
   opacity: 0;
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
 }
 
 .exit-arrum .arrum-text-wrapper {
+  animation: none; /* Reset revealVerse animation */
   transform: scale(0.95);
   opacity: 0;
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
 }
 
 .exit-arrum .arrum-citation {
+  animation: none; /* Reset revealCitation animation */
   transform: translateY(25px);
   opacity: 0;
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
@@ -1162,8 +1166,8 @@ html, body {
 /* Mempelai Photo Box-less / Background-less PNG Container (Absolute Positioned for Size) */
 .mempelai-photo-block {
   height: 98%; /* Adjusted to leave a small gap and avoid overlapping the frame */
-  width: 52%; /* Reduced slightly to prevent frame overlay */
-  max-width: 190px;
+  width: 42%; /* Reduced from 52% to guarantee separation from text block */
+  max-width: 140px; /* Reduced from 190px to prevent overlapping on narrow Android screens */
   opacity: 0;
   will-change: transform, opacity;
   position: absolute;
@@ -1193,7 +1197,7 @@ html, body {
 
 /* Mempelai Info Blocks (positioned absolutely next to photos) */
 .mempelai-info-block {
-  width: 54%; /* Sized to fit comfortably beside the resized photo */
+  width: 48%; /* Reduced from 54% to guarantee separation from photo block */
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -1205,20 +1209,20 @@ html, body {
 }
 
 .groom-info {
-  left: 20px; /* Shifted inside the left border */
+  left: 15px; /* Aligned inside the left frame boundary */
   text-align: right;
   align-items: flex-end;
 }
 
 .bride-info {
-  right: 20px; /* Shifted inside the right border */
+  right: 15px; /* Aligned inside the right frame boundary */
   text-align: left;
   align-items: flex-start;
 }
 
 .mempelai-name {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.05rem; /* Sized down slightly to fit on narrow screens without wrapping */
   font-weight: 600;
   color: var(--color-maroon-bright);
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.95), 0 2px 4px rgba(88, 17, 26, 0.1);
@@ -1228,7 +1232,7 @@ html, body {
 
 .mempelai-parents {
   font-family: 'Caveat', cursive;
-  font-size: 1.1rem;
+  font-size: 0.98rem; /* Sized down slightly for cursive readability in narrow column */
   font-weight: 700;
   color: var(--color-maroon-base);
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.95);
@@ -1438,6 +1442,7 @@ html, body {
 }
 
 .exit-couple .couple-frame-overlay {
+  animation: none; /* Reset paintFrame animation so it can translate up on exit */
   transform: translateY(-100%);
   opacity: 0;
   transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease;
@@ -1453,25 +1458,74 @@ html, body {
    SECTION 1 (AR-RUM) EXIT-BACK ANIMATIONS (Slide Down)
    ========================================================================== */
 .exit-arrum-back .frame-overlay {
+  animation: none; /* Reset paintFrame/floatFrame animations */
   transform: translateY(100%);
   opacity: 0;
   transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease;
 }
 
 .exit-arrum-back .arrum-crest {
+  animation: none; /* Reset revealCrest animation */
   transform: translateY(30px);
   opacity: 0;
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
 .exit-arrum-back .arrum-text-wrapper {
+  animation: none; /* Reset revealVerse animation */
   transform: translateY(30px) scale(0.98);
   opacity: 0;
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
 .exit-arrum-back .arrum-citation {
+  animation: none; /* Reset revealCitation animation */
   transform: translateY(30px);
   opacity: 0;
   transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Center Decor Ornament (ornamen7.png) for Section 2 */
+.couple-center-decor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1; /* Sits behind text (z-index 3) and photos (z-index 2) */
+  pointer-events: none;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active-couple .couple-center-decor {
+  animation: revealCenterDecor 1.8s ease-out 2.2s forwards;
+}
+
+@keyframes revealCenterDecor {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% {
+    opacity: 0.9; /* More vivid, premium maroon wax seal */
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.center-ornament-img {
+  width: 140px; /* Sized up to match the visual weight of the photo blocks (140px max-width) */
+  height: auto;
+  max-width: 40vw; /* Responsive scale */
+  object-fit: contain;
+  filter: drop-shadow(0 6px 15px rgba(88, 17, 26, 0.2)); /* More pronounced premium drop shadow */
+}
+
+/* Scale down the center ornament on exit */
+.exit-couple .couple-center-decor {
+  animation: none; /* Stops the reveal animation so the transition is not overridden */
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
 }
