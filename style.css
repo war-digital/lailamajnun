@@ -1175,12 +1175,12 @@ html, body {
 }
 
 .groom-photo {
-  right: 15px; /* Shifted inside the right border */
+  left: 15px; /* Shifted inside the left border */
   bottom: -25px; /* Lowered Groom slightly to sit perfectly away from top ornaments */
 }
 
 .bride-photo {
-  left: 15px; /* Shifted inside the left border */
+  right: 15px; /* Shifted inside the right border */
   bottom: 25px; /* Raised Bride slightly to sit perfectly away from bottom ornaments */
 }
 
@@ -1209,15 +1209,15 @@ html, body {
 }
 
 .groom-info {
-  left: 15px; /* Aligned inside the left frame boundary */
-  text-align: right;
-  align-items: flex-end;
-}
-
-.bride-info {
   right: 15px; /* Aligned inside the right frame boundary */
   text-align: left;
   align-items: flex-start;
+}
+
+.bride-info {
+  left: 15px; /* Aligned inside the left frame boundary */
+  text-align: right;
+  align-items: flex-end;
 }
 
 .mempelai-name {
@@ -1249,11 +1249,11 @@ html, body {
 }
 
 .groom-info .mempelai-separator {
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .bride-info .mempelai-separator {
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 
 .sep-line {
@@ -1262,11 +1262,11 @@ html, body {
 }
 
 .groom-info .sep-line {
-  background: linear-gradient(to left, var(--color-maroon-bright), transparent);
+  background: linear-gradient(to right, var(--color-maroon-bright), transparent);
 }
 
 .bride-info .sep-line {
-  background: linear-gradient(to right, var(--color-maroon-bright), transparent);
+  background: linear-gradient(to left, var(--color-maroon-bright), transparent);
 }
 
 .sep-heart {
@@ -1286,44 +1286,86 @@ html, body {
 
 /* Staggered Corner Walk Entrance Animations */
 .active-couple .groom-photo-anim {
-  animation: slideGroomCorner 3.8s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+  animation: slideGroomCorner 4.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .active-couple .bride-photo-anim {
-  animation: slideBrideCorner 3.8s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+  animation: slideBrideCorner 4.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 @keyframes slideGroomCorner {
   0% {
     opacity: 0;
-    transform: translate(60px, -15px) scale(0.95);
+    transform: translateX(calc(min(90vw, 396px) - 100% - 30px)) translateY(0) scaleX(1);
+  }
+  15% {
+    opacity: 1;
+    transform: translateX(calc((min(90vw, 396px) - 100% - 30px) * 0.8)) translateY(-8px) scaleX(1);
   }
   30% {
     opacity: 1;
+    transform: translateX(calc((min(90vw, 396px) - 100% - 30px) * 0.6)) translateY(0) scaleX(1);
   }
-  100% {
+  45% {
     opacity: 1;
-    transform: translate(0, 0) scale(1);
+    transform: translateX(calc((min(90vw, 396px) - 100% - 30px) * 0.4)) translateY(-8px) scaleX(1);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(calc((min(90vw, 396px) - 100% - 30px) * 0.2)) translateY(0) scaleX(1);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scaleX(1);
+  }
+  85% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scaleX(-0.1); /* Mirroring flip squeeze */
+  }
+  95%, 100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scaleX(-1); /* Settles mirrored */
   }
 }
 
 @keyframes slideBrideCorner {
   0% {
     opacity: 0;
-    transform: translate(-60px, 15px) scale(0.95);
+    transform: translateX(calc(100% + 30px - min(90vw, 396px))) translateY(0) scaleX(1);
+  }
+  15% {
+    opacity: 1;
+    transform: translateX(calc((100% + 30px - min(90vw, 396px)) * 0.8)) translateY(-8px) scaleX(1);
   }
   30% {
     opacity: 1;
+    transform: translateX(calc((100% + 30px - min(90vw, 396px)) * 0.6)) translateY(0) scaleX(1);
   }
-  100% {
+  45% {
     opacity: 1;
-    transform: translate(0, 0) scale(1);
+    transform: translateX(calc((100% + 30px - min(90vw, 396px)) * 0.4)) translateY(-8px) scaleX(1);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(calc((100% + 30px - min(90vw, 396px)) * 0.2)) translateY(0) scaleX(1);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scaleX(1);
+  }
+  85% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scaleX(-0.1); /* Mirroring flip squeeze */
+  }
+  95%, 100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scaleX(-1); /* Settles mirrored */
   }
 }
 
-/* Mempelai Info Blocks Reveal after photos settle */
+/* Mempelai Info Blocks Reveal starts exactly as mirroring flip begins */
 .active-couple .mempelai-info-block {
-  animation: revealInfoBlock 1.5s ease-out 3.8s forwards;
+  animation: revealInfoBlock 1.5s ease-out 3.1s forwards;
 }
 
 @keyframes revealInfoBlock {
@@ -1360,11 +1402,11 @@ html, body {
 @keyframes skewTextGroom {
   0% {
     transform: rotate(-1deg) skewX(-0.6deg);
-    transform-origin: right center;
+    transform-origin: left center;
   }
   100% {
     transform: rotate(1deg) skewX(0.6deg);
-    transform-origin: right center;
+    transform-origin: left center;
   }
 }
 
@@ -1377,11 +1419,11 @@ html, body {
 @keyframes skewTextBride {
   0% {
     transform: rotate(-1deg) skewX(-0.6deg);
-    transform-origin: left center;
+    transform-origin: right center;
   }
   100% {
     transform: rotate(1deg) skewX(0.6deg);
-    transform-origin: left center;
+    transform-origin: right center;
   }
 }
 
@@ -1515,9 +1557,9 @@ html, body {
 }
 
 .center-ornament-img {
-  width: 140px; /* Sized up to match the visual weight of the photo blocks (140px max-width) */
+  width: 120px; /* Sized down slightly to balance perfectly with the couple images */
   height: auto;
-  max-width: 40vw; /* Responsive scale */
+  max-width: 35vw; /* Responsive scale */
   object-fit: contain;
   filter: drop-shadow(0 6px 15px rgba(88, 17, 26, 0.2)); /* More pronounced premium drop shadow */
 }
