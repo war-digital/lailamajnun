@@ -1,0 +1,1477 @@
+/* ==========================================================================
+   DESIGN SYSTEM & VARIABLES
+   ========================================================================== */
+:root {
+  /* Maroon Palette */
+  --color-maroon-dark: #38060C;
+  --color-maroon-base: #58111A;
+  --color-maroon-light: #7A1B28;
+  --color-maroon-bright: #B01E2E; /* Bright Maroon / Crimson */
+  --color-bg-deep: #1A0305;
+  
+  /* Gold Palette */
+  --color-gold-light: #F9E7B9;
+  --color-gold-medium: #D4AF37;
+  --color-gold-dark: #AA7C11;
+  --gold-gradient: linear-gradient(135deg, #F9E7B9 0%, #D4AF37 50%, #AA7C11 100%);
+  
+  /* Light Palette (For Cover Contrast) */
+  --color-white-base: #FDFBF7;
+  --color-white-cream: #FAF7F0;
+  --color-white-shadow: #EFECE6;
+  
+  /* Neutrals & Text Colors */
+  --color-text-white: #FFFFFF;
+  --color-text-gold: #F4E0A5;
+  --color-text-muted: #E0C0C0;
+  
+  /* Typography */
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-cursive: 'Great Vibes', cursive;
+  --font-sans: 'Montserrat', sans-serif;
+  
+  /* Layout & Transitions */
+  --transition-slow: 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-medium: 0.5s ease;
+  --transition-fast: 0.2s ease;
+}
+
+/* ==========================================================================
+   RESET & SYSTEM WRAPPER (Portrait 6:19 / 9:19 Android Aspect Ratio)
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #2d050a 0%, #150204 100%);
+  color: var(--color-text-white);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* App Container limits dimensions to simulate an Android Screen (approx 9:19.5 aspect ratio) */
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-width: 440px;
+  max-height: 900px;
+  aspect-ratio: 9 / 19.5;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 0 10px rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  background-color: var(--color-bg-deep);
+  transition: transform var(--transition-medium);
+}
+
+/* Fullscreen on actual mobile screens */
+@media (max-width: 480px) {
+  html, body {
+    background: var(--color-bg-deep);
+  }
+  #app {
+    max-width: 100%;
+    max-height: 100%;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    aspect-ratio: auto;
+  }
+}
+
+/* ==========================================================================
+   COMMON SCREEN STYLING
+   ========================================================================== */
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition: transform var(--transition-slow), opacity var(--transition-slow);
+}
+
+.hidden-screen {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   OPENING / COVER SCREEN (Light/White theme for contrast)
+   ========================================================================== */
+#opening-screen {
+  background: linear-gradient(135deg, var(--color-white-base) 0%, var(--color-white-cream) 60%, var(--color-white-shadow) 100%);
+  z-index: 20;
+}
+
+/* Soft vignette and textures */
+.white-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 40%, rgba(88, 17, 26, 0.03) 100%);
+  pointer-events: none;
+}
+
+/* Top & Bottom Deep Maroon Decorative Flourishes */
+.decor-top, .decor-bottom {
+  position: absolute;
+  width: 200px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.85;
+}
+
+.decor-top {
+  top: 40px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20" fill="%2358111A"><path d="M50,2.5 C40,2.5 35,10 20,10 C10,10 5,5 0,5 L0,6 C5,6 10,11 20,11 C35,11 40,3.5 50,3.5 C60,3.5 65,11 80,11 C90,11 95,6 100,6 L100,5 C95,5 90,10 80,10 C65,10 60,2.5 50,2.5 Z M50,0 C48,0 47,2 50,5 C53,2 52,0 50,0 Z"/></svg>');
+}
+
+.decor-bottom {
+  bottom: 40px;
+  transform: rotate(180deg);
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20" fill="%2358111A"><path d="M50,2.5 C40,2.5 35,10 20,10 C10,10 5,5 0,5 L0,6 C5,6 10,11 20,11 C35,11 40,3.5 50,3.5 C60,3.5 65,11 80,11 C90,11 95,6 100,6 L100,5 C95,5 90,10 80,10 C65,10 60,2.5 50,2.5 Z M50,0 C48,0 47,2 50,5 C53,2 52,0 50,0 Z"/></svg>');
+}
+
+/* Opening Content layout */
+.opening-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 85%;
+  height: 65%;
+  position: relative;
+  z-index: 5;
+}
+
+/* "UNDANGAN" Title (Deep Maroon) */
+.undangan-title {
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  letter-spacing: 0.5rem;
+  font-weight: 600;
+  text-align: center;
+  background: linear-gradient(135deg, var(--color-maroon-light) 0%, var(--color-maroon-base) 50%, var(--color-maroon-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0px 2px 4px rgba(88, 17, 26, 0.15));
+}
+
+.animate-from-top {
+  animation: slideInFromTop 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Central Ornament styling */
+.ornament-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  position: relative;
+  animation: floatOrnament 4s ease-in-out infinite;
+}
+
+.opening-ornament {
+  max-width: 270px; /* Enlarged to show actual size */
+  width: 75vw;
+  height: auto;
+  filter: drop-shadow(0px 8px 16px rgba(88, 17, 26, 0.18));
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.opening-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.opening-initials {
+  font-family: var(--font-cursive);
+  font-size: 3.2rem;
+  font-weight: 500;
+  color: var(--color-maroon-bright); /* Vibrant bright maroon */
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 2px 4px rgba(88, 17, 26, 0.1);
+  margin-top: 5px;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeInInitials 1.8s ease-out 0.4s forwards;
+}
+
+@keyframes fadeInInitials {
+  to {
+    opacity: 0.9;
+  }
+}
+
+@keyframes floatOrnament {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+/* Swipe to Unlock Slider */
+.swipe-container {
+  width: 100%;
+}
+
+.swipe-track {
+  position: relative;
+  width: 100%;
+  height: 56px;
+  background: rgba(88, 17, 26, 0.06);
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(88, 17, 26, 0.1);
+}
+
+.swipe-text {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+  color: var(--color-maroon-base);
+  opacity: 0.85;
+  font-weight: 500;
+  user-select: none;
+  pointer-events: none;
+  background: linear-gradient(to right, var(--color-maroon-base) 20%, var(--color-maroon-light) 50%, var(--color-maroon-base) 80%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shineText 3s linear infinite;
+}
+
+@keyframes shineText {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.swipe-handle {
+  position: absolute;
+  left: 4px;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--color-maroon-light) 0%, var(--color-maroon-base) 100%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+  box-shadow: 0 4px 12px rgba(88, 17, 26, 0.25);
+  z-index: 2;
+  transition: transform 0.1s ease-out;
+}
+
+.swipe-handle:active {
+  cursor: grabbing;
+}
+
+.swipe-handle i {
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  animation: arrowPulse 1.5s infinite;
+}
+
+@keyframes arrowPulse {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+
+/* Cover sliding animation class */
+#opening-screen.slide-out {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+#opening-screen.slide-out .opening-ornament {
+  transform: translateX(120px) rotate(12deg);
+  opacity: 0;
+}
+
+/* ==========================================================================
+   MAIN WEDDING SCREEN (Section 1 - Centered Content over bg.jpg Background)
+   ========================================================================== */
+#wedding-screen {
+  background-image: url('bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 10;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main Column Container (Constrained width to prevent horizontal overflow) */
+.wedding-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%; /* Fixes overflow */
+  height: 100%;
+  padding: 40px 20px;
+  z-index: 5;
+  overflow: hidden; /* Fixes overflow */
+}
+
+/* 1. Top text: "The Wedding Of" (outside the frame) */
+.the-wedding {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.45rem;
+  letter-spacing: 0.15rem;
+  color: var(--color-maroon-bright);
+  text-shadow: 0 1px 1.5px rgba(255, 255, 255, 0.95), 0 2px 4px rgba(88, 17, 26, 0.15);
+  text-align: center;
+  white-space: nowrap;
+  margin-bottom: 22px;
+}
+
+/* Plunge wrapper for top text */
+.animate-terjun-1 {
+  opacity: 0;
+}
+
+/* 2. Middle: Sized-down Couple Image Container */
+.couple-img-wrapper {
+  width: 38%;
+  max-width: 145px;
+  aspect-ratio: 447 / 558;
+  margin-bottom: 25px;
+  position: relative;
+  z-index: 6;
+}
+
+/* Plunge/Zoom wrapper for image */
+.animate-terjun-2 {
+  width: 53%;
+  max-width: 210px;
+  aspect-ratio: 447 / 558;
+  margin-bottom: 25px;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sway-img {
+  width: 100%;
+  height: 100%;
+}
+
+.couple-img-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.couple-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: drop-shadow(0 10px 25px rgba(88, 17, 26, 0.25)); /* Oval border shadow */
+}
+
+/* 3. Bottom: details container below the image (outside the frame) */
+.wedding-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 100%;
+}
+
+/* Plunge wrapper for names */
+.animate-terjun-3 {
+  opacity: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Couple Names in 1 single line (optimized font-size for mobile to prevent overflow) */
+.names-title {
+  font-family: var(--font-cursive);
+  font-size: 2.8rem; /* Sized down slightly (from 3.5rem) to fit mobile screens without cutting off */
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-maroon-bright);
+  text-shadow: 0 1px 1.5px rgba(255, 255, 255, 0.95), 0 2px 5px rgba(88, 17, 26, 0.15);
+  white-space: nowrap;
+  overflow: visible;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+/* Plunge wrapper for date */
+.animate-terjun-4 {
+  opacity: 0;
+}
+
+/* Date & Location details */
+.save-the-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.date-text {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  letter-spacing: 0.1rem;
+  color: var(--color-maroon-bright);
+  text-shadow: 0 1px 1.5px rgba(255, 255, 255, 0.95);
+}
+
+.decor-dot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--color-maroon-bright);
+  border-radius: 50%;
+  margin: 8px 0;
+  box-shadow: 0 0 5px var(--color-maroon-bright);
+}
+
+.location-text {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  color: var(--color-maroon-base);
+  text-shadow: 0 1px 1.5px rgba(255, 255, 255, 0.95);
+}
+
+/* ==========================================================================
+   FLOATING CORNER ORNAMENTS (ornamen1.png) - Identical & Larger
+   ========================================================================== */
+.corner-ribbon {
+  position: absolute;
+  width: 110px; /* Beautifully sized larger */
+  height: auto;
+  z-index: 15;
+  pointer-events: none;
+  opacity: 0;
+  filter: drop-shadow(0 4px 10px rgba(88, 17, 26, 0.2));
+  transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1), opacity 1.8s ease;
+}
+
+/* Initial offscreen positions (positioned at corners, no rotation/flips) */
+.ribbon-tl {
+  top: 10px;
+  left: 10px;
+  transform: translate(-150px, -150px);
+}
+
+.ribbon-tr {
+  top: 10px;
+  right: 10px;
+  transform: translate(150px, -150px);
+}
+
+.ribbon-bl {
+  bottom: 10px;
+  left: 10px;
+  transform: translate(-150px, 150px);
+}
+
+.ribbon-br {
+  bottom: 10px;
+  right: 10px;
+  transform: translate(150px, 150px);
+}
+
+/* Active states - slide into corners keeping 0deg rotation (No flip or rotation variations) */
+.active-wedding .ribbon-tl {
+  opacity: 0.95;
+  transform: translate(0, 0);
+  animation: floatRibbonIdentical 6s ease-in-out infinite alternate 1.8s;
+}
+
+.active-wedding .ribbon-tr {
+  opacity: 0.95;
+  transform: translate(0, 0);
+  animation: floatRibbonIdentical 6.5s ease-in-out infinite alternate 1.8s;
+}
+
+.active-wedding .ribbon-bl {
+  opacity: 0.95;
+  transform: translate(0, 0);
+  animation: floatRibbonIdentical 5.8s ease-in-out infinite alternate 1.8s;
+}
+
+.active-wedding .ribbon-br {
+  opacity: 0.95;
+  transform: translate(0, 0);
+  animation: floatRibbonIdentical 6.2s ease-in-out infinite alternate 1.8s;
+}
+
+/* Identical floating loop for all corners */
+@keyframes floatRibbonIdentical {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(3px, -4px) scale(1.02) rotate(0.5deg);
+  }
+  100% {
+    transform: translate(-2px, 3px) scale(0.98) rotate(-0.5deg);
+  }
+}
+
+/* ==========================================================================
+   TERJUN (DIVE-DOWN DROP & BOUNCE) KEYFRAMES - High Visibility
+   ========================================================================== */
+.active-wedding .animate-terjun-1 {
+  animation: terjunFlow 1.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s forwards;
+}
+
+.active-wedding .animate-terjun-2 {
+  animation: zoomReveal 1.8s cubic-bezier(0.19, 1, 0.22, 1) 0.7s forwards;
+}
+
+.active-wedding .animate-terjun-3 {
+  animation: terjunFlow 1.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.0s forwards;
+}
+
+.active-wedding .animate-terjun-4 {
+  animation: terjunFlow 1.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.3s forwards;
+}
+
+.active-wedding .animate-terjun-5 {
+  animation: terjunFlow 1.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.5s forwards;
+}
+
+.active-wedding .animate-terjun-6 {
+  animation: terjunFlow 1.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.7s forwards;
+}
+
+/* Stretched on fall, squashed on impact */
+@keyframes terjunFlow {
+  0% {
+    opacity: 0;
+    transform: translateY(-380px) scaleY(1.45) scaleX(0.8); /* Plunge from high above */
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(22px) scaleY(0.82) scaleX(1.12); /* Squash on landing */
+  }
+  75% {
+    transform: translateY(-8px) scaleY(1.06) scaleX(0.96); /* Small bounce up */
+  }
+  90% {
+    transform: translateY(3px) scaleY(0.98) scaleX(1.01); /* Small landing settle */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1) scaleX(1);
+  }
+}
+
+@keyframes zoomReveal {
+  0% {
+    opacity: 0;
+    transform: scale(1.18);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================================
+   SWAY/FLOAT LOOPS (Runs continuously after the plunge ends)
+   ========================================================================== */
+.active-wedding .sway-text-slow {
+  animation: floatText 5s ease-in-out infinite alternate 2.0s;
+}
+
+.active-wedding .sway-img {
+  animation: floatImage 6s ease-in-out infinite alternate 2.5s;
+}
+
+.active-wedding .sway-text-medium {
+  animation: floatText 5.5s ease-in-out infinite alternate 2.6s;
+}
+
+.active-wedding .sway-text-fast {
+  animation: floatText 4.8s ease-in-out infinite alternate 2.9s;
+}
+
+@keyframes floatText {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(3px, -5px) rotate(0.8deg);
+  }
+  100% {
+    transform: translate(-3px, 4px) rotate(-0.8deg);
+  }
+}
+
+@keyframes floatImage {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-4px, -6px) scale(1.015) rotate(-0.6deg);
+  }
+  100% {
+    transform: translate(4px, 5px) scale(0.985) rotate(0.6deg);
+  }
+}
+
+/* ==========================================================================
+   GUEST & BUTTON STYLING
+   ========================================================================== */
+.guest-container {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.guest-label {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+  color: var(--color-maroon-base);
+  opacity: 0.8;
+  font-weight: 500;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.guest-name {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-maroon-bright);
+  margin-top: 5px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 2px 4px rgba(88, 17, 26, 0.1);
+  word-wrap: break-word;
+  max-width: 90%;
+}
+
+.btn-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn-open {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  background: var(--gold-gradient);
+  border: none;
+  border-radius: 25px;
+  color: var(--color-maroon-dark);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(88, 17, 26, 0.18), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  animation: pulseButton 2s infinite;
+}
+
+.btn-open:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(88, 17, 26, 0.28);
+}
+
+.btn-open:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(88, 17, 26, 0.18);
+}
+
+.btn-open i {
+  color: var(--color-maroon-dark);
+  font-size: 0.9rem;
+}
+
+@keyframes pulseButton {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+  }
+}
+
+/* ==========================================================================
+   MUSIC BUTTON
+   ========================================================================== */
+.music-btn {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  border: none;
+  cursor: pointer;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  transition: transform var(--transition-fast), opacity 0.5s ease;
+}
+
+.music-btn i {
+  color: var(--color-maroon-dark);
+  font-size: 1.2rem;
+}
+
+.music-btn:hover {
+  transform: scale(1.08);
+}
+
+.music-btn.muted i {
+  animation-play-state: paused;
+}
+
+.music-btn.muted::after {
+  content: '';
+  position: absolute;
+  width: 55%;
+  height: 2px;
+  background-color: var(--color-maroon-dark);
+  transform: rotate(-45deg);
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fa-spin-slow {
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION STYLING
+   ========================================================================== */
+.toast-notification {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  background: rgba(56, 6, 12, 0.95);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--color-text-gold);
+  padding: 12px 25px;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.05rem;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.toast-notification.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ==========================================================================
+   RESPONSIVENESS ADJUSTMENTS FOR VERY SMALL SCREENS
+   ========================================================================== */
+@media (max-width: 360px) {
+  .undangan-title {
+    font-size: 2.2rem;
+    letter-spacing: 0.35rem;
+  }
+  
+  .opening-ornament {
+    max-width: 160px;
+  }
+  
+  .names-title {
+    font-size: 2.2rem;
+  }
+  
+  .the-wedding {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+}
+
+/* ==========================================================================
+   AR-RUM SCREEN (Section 2 - Triggered after clicking 'Buka Undangan')
+   ========================================================================== */
+#arrum-screen {
+  background-image: url('bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 12;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#arrum-screen.active-arrum {
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+/* bg2.png transparent frame overlay */
+.frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('bg2.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  z-index: 5;
+  clip-path: polygon(50% 50%, 50% 0, 50% 0, 50% 0, 50% 0, 50% 0); /* Hidden initially */
+}
+
+/* Clockwise sweep drawing animation */
+.active-arrum .frame-overlay {
+  animation: paintFrame 2.8s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+             floatFrame 8s ease-in-out infinite alternate 2.8s;
+}
+
+@keyframes paintFrame {
+  0% {
+    clip-path: polygon(50% 50%, 50% 0, 50% 0, 50% 0, 50% 0, 50% 0);
+  }
+  25% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
+  75% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
+  }
+}
+
+@keyframes floatFrame {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(2px, 3px) scale(1.008);
+  }
+  100% {
+    transform: translate(-2px, -3px) scale(0.992);
+  }
+}
+
+/* Content Container */
+.arrum-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 82%;
+  max-width: 340px;
+  height: 82%;
+  z-index: 6;
+  text-align: center;
+  position: relative;
+}
+
+/* Header Crest / Ornament */
+.arrum-crest {
+  margin-bottom: 25px;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mini-crest {
+  width: 90px;
+  height: auto;
+  filter: drop-shadow(0 2px 5px rgba(88, 17, 26, 0.15));
+}
+
+/* Surah Verse Paragraph */
+.arrum-text-wrapper {
+  margin-bottom: 30px;
+  width: 100%;
+  opacity: 0;
+}
+
+.arrum-verse {
+  font-family: 'Caveat', cursive;
+  font-size: 1.65rem;
+  line-height: 1.45;
+  color: var(--color-maroon-bright);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.95), 0 2px 4px rgba(88, 17, 26, 0.1);
+  font-weight: 600;
+  padding: 0 12px;
+}
+
+/* Citation */
+.arrum-citation {
+  opacity: 0;
+  width: 100%;
+}
+
+.citation-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-maroon-base);
+  letter-spacing: 0.05rem;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.95);
+}
+
+/* Sequential Reveals after Frame is Painted */
+.active-arrum .animate-paint-1 {
+  animation: revealCrest 1.2s cubic-bezier(0.25, 1, 0.5, 1) 2.6s forwards;
+}
+
+.active-arrum .animate-paint-2 {
+  animation: revealVerse 1.4s cubic-bezier(0.25, 1, 0.5, 1) 3.3s forwards;
+}
+
+.active-arrum .animate-paint-3 {
+  animation: revealCitation 1.2s cubic-bezier(0.25, 1, 0.5, 1) 3.9s forwards;
+}
+
+@keyframes revealCrest {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes revealVerse {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes revealCitation {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scoped Sway/Float Loops (Ornament only, text is static) */
+.active-arrum .mini-crest {
+  animation: floatImage 6s ease-in-out infinite alternate 3.8s;
+}
+
+/* Transition to shrink & fade out previous screen contents */
+.fade-out-screen {
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ==========================================================================
+   SECTION 1 (AR-RUM) EXIT ANIMATIONS
+   ========================================================================== */
+.exit-arrum .frame-overlay {
+  transform: scale(1.08);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+.exit-arrum .arrum-crest {
+  transform: translateY(-40px);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+.exit-arrum .arrum-text-wrapper {
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+.exit-arrum .arrum-citation {
+  transform: translateY(25px);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+/* ==========================================================================
+   COUPLE DETAILS SCREEN (Section 2)
+   ========================================================================== */
+#couple-screen {
+  background-image: url('bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 13; /* Higher than arrum screen to stack correctly */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#couple-screen.active-couple {
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+/* bg3.png transparent frame overlay */
+.couple-frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('bg3.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  z-index: 5;
+  clip-path: polygon(50% 50%, 50% 0, 50% 0, 50% 0, 50% 0, 50% 0); /* Hidden initially */
+}
+
+/* Clockwise sweep drawing animation */
+.active-couple .couple-frame-overlay {
+  animation: paintFrame 2.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Content Container (Vertical Stack of Rows) */
+.couple-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 90%;
+  height: 82%;
+  z-index: 6;
+  position: relative;
+  padding: 10px 0;
+}
+
+/* Mempelai Row Layout */
+.mempelai-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch; /* Stretch to fill full half height of container */
+  width: 100%;
+  height: 50%; /* Each row takes exactly half container height */
+  position: relative;
+}
+
+/* Mempelai Photo Box-less / Background-less PNG Container (Absolute Positioned for Size) */
+.mempelai-photo-block {
+  height: 98%; /* Adjusted to leave a small gap and avoid overlapping the frame */
+  width: 52%; /* Reduced slightly to prevent frame overlay */
+  max-width: 190px;
+  opacity: 0;
+  will-change: transform, opacity;
+  position: absolute;
+  z-index: 2;
+}
+
+.groom-photo {
+  right: 15px; /* Shifted inside the right border */
+  bottom: -25px; /* Lowered Groom slightly to sit perfectly away from top ornaments */
+}
+
+.bride-photo {
+  left: 15px; /* Shifted inside the left border */
+  bottom: 25px; /* Raised Bride slightly to sit perfectly away from bottom ornaments */
+}
+
+.mempelai-png-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Fit inside the block without cropping */
+  display: block;
+  filter: drop-shadow(0 8px 16px rgba(88, 17, 26, 0.22)); /* Contour shadow */
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Mempelai Info Blocks (positioned absolutely next to photos) */
+.mempelai-info-block {
+  width: 54%; /* Sized to fit comfortably beside the resized photo */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.groom-info {
+  left: 20px; /* Shifted inside the left border */
+  text-align: right;
+  align-items: flex-end;
+}
+
+.bride-info {
+  right: 20px; /* Shifted inside the right border */
+  text-align: left;
+  align-items: flex-start;
+}
+
+.mempelai-name {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-maroon-bright);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.95), 0 2px 4px rgba(88, 17, 26, 0.1);
+  margin-bottom: 4px;
+  line-height: 1.25;
+}
+
+.mempelai-parents {
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-maroon-base);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.95);
+  line-height: 1.25;
+}
+
+/* Horizontal separators inside rows (small heart separators under name) */
+.mempelai-separator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 80%;
+  margin: 3px 0;
+}
+
+.groom-info .mempelai-separator {
+  justify-content: flex-end;
+}
+
+.bride-info .mempelai-separator {
+  justify-content: flex-start;
+}
+
+.sep-line {
+  width: 50px;
+  height: 1.2px;
+}
+
+.groom-info .sep-line {
+  background: linear-gradient(to left, var(--color-maroon-bright), transparent);
+}
+
+.bride-info .sep-line {
+  background: linear-gradient(to right, var(--color-maroon-bright), transparent);
+}
+
+.sep-heart {
+  color: var(--color-maroon-bright);
+  font-size: 0.65rem;
+  animation: pulseHeart 1.5s infinite;
+}
+
+@keyframes pulseHeart {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+/* Staggered Corner Walk Entrance Animations */
+.active-couple .groom-photo-anim {
+  animation: slideGroomCorner 3.8s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+}
+
+.active-couple .bride-photo-anim {
+  animation: slideBrideCorner 3.8s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes slideGroomCorner {
+  0% {
+    opacity: 0;
+    transform: translate(60px, -15px) scale(0.95);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes slideBrideCorner {
+  0% {
+    opacity: 0;
+    transform: translate(-60px, 15px) scale(0.95);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* Mempelai Info Blocks Reveal after photos settle */
+.active-couple .mempelai-info-block {
+  animation: revealInfoBlock 1.5s ease-out 3.8s forwards;
+}
+
+@keyframes revealInfoBlock {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* In-place Tilting/Skewing Animations (Bergerak di tempat - sudut saja) */
+.active-couple .mempelai-png-photo {
+  animation: skewPhoto 2.8s ease-in-out infinite alternate 3.8s;
+}
+
+@keyframes skewPhoto {
+  0% {
+    transform: rotate(-1.8deg) skewX(-1deg);
+  }
+  100% {
+    transform: rotate(1.8deg) skewX(1deg);
+  }
+}
+
+/* Groom Text Tilting */
+.active-couple .groom-info .mempelai-name,
+.active-couple .groom-info .mempelai-parents {
+  animation: skewTextGroom 2.4s ease-in-out infinite alternate 5.3s;
+}
+
+@keyframes skewTextGroom {
+  0% {
+    transform: rotate(-1deg) skewX(-0.6deg);
+    transform-origin: right center;
+  }
+  100% {
+    transform: rotate(1deg) skewX(0.6deg);
+    transform-origin: right center;
+  }
+}
+
+/* Bride Text Tilting */
+.active-couple .bride-info .mempelai-name,
+.active-couple .bride-info .mempelai-parents {
+  animation: skewTextBride 2.4s ease-in-out infinite alternate 5.3s;
+}
+
+@keyframes skewTextBride {
+  0% {
+    transform: rotate(-1deg) skewX(-0.6deg);
+    transform-origin: left center;
+  }
+  100% {
+    transform: rotate(1deg) skewX(0.6deg);
+    transform-origin: left center;
+  }
+}
+
+/* Decorative Spinning Ornaments (ornamen3.png) for Section 2 */
+.couple-decor-wrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15; /* Sits above the frame and content */
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+}
+
+/* Fade in the ornaments slowly when the screen becomes active */
+.active-couple .couple-decor-wrapper {
+  opacity: 0.9;
+  transition: opacity 1.2s ease 2.0s;
+}
+
+.decor-top-pos {
+  top: 10px;
+}
+
+.decor-bottom-pos {
+  bottom: 10px;
+}
+
+.couple-decor-img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  filter: drop-shadow(0 2px 5px rgba(88, 17, 26, 0.15));
+}
+
+.spinning-ornament {
+  animation: spin 16s linear infinite;
+}
+
+/* ==========================================================================
+   SECTION 2 (COUPLE SCREEN) EXIT ANIMATIONS (Split Horizontal Slide)
+   ========================================================================== */
+.exit-couple .mempelai-row.groom-row {
+  transform: translateX(100px);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+.exit-couple .mempelai-row.bride-row {
+  transform: translateX(-100px);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+.exit-couple .couple-frame-overlay {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease;
+}
+
+.exit-couple .couple-decor-wrapper {
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+/* ==========================================================================
+   SECTION 1 (AR-RUM) EXIT-BACK ANIMATIONS (Slide Down)
+   ========================================================================== */
+.exit-arrum-back .frame-overlay {
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease;
+}
+
+.exit-arrum-back .arrum-crest {
+  transform: translateY(30px);
+  opacity: 0;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.exit-arrum-back .arrum-text-wrapper {
+  transform: translateY(30px) scale(0.98);
+  opacity: 0;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.exit-arrum-back .arrum-citation {
+  transform: translateY(30px);
+  opacity: 0;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
