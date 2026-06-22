@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const arrumScreen = document.getElementById('arrum-screen');
   const coupleScreen = document.getElementById('couple-screen');
   const scheduleScreen = document.getElementById('schedule-screen');
+  const storyScreen = document.getElementById('story-screen');
+  const giftScreen = document.getElementById('gift-screen');
+  const wishesScreen = document.getElementById('wishes-screen');
+  const thankyouScreen = document.getElementById('thankyou-screen');
   
   let isDraggingHandle = false;
   let isDraggingScreen = false;
@@ -427,6 +431,198 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 800);
   }
 
+  // 6. Section 3 (Schedule) -> Section 4 (Love Story) (Move Forward)
+  function triggerScheduleExit() {
+    if (isTransitioningSchedule) return;
+    isTransitioningSchedule = true;
+
+    // Trigger Section 3 exit forward animations
+    scheduleScreen.classList.add('exit-schedule');
+
+    setTimeout(() => {
+      // Hide Section 3
+      scheduleScreen.classList.add('hidden-screen');
+      scheduleScreen.classList.remove('active-schedule');
+      scheduleScreen.classList.remove('exit-schedule');
+
+      // Show Section 4
+      storyScreen.classList.remove('hidden-screen');
+      void storyScreen.offsetWidth;
+      storyScreen.classList.add('active-story');
+
+      isTransitioningSchedule = false;
+    }, 800);
+  }
+
+  let isTransitioningStory = false;
+
+  // 7. Section 4 (Love Story) -> Section 3 (Schedule) (Move Backward)
+  function triggerStoryExitBack() {
+    if (isTransitioningStory) return;
+    isTransitioningStory = true;
+
+    // Trigger Section 4 exit-back animations
+    storyScreen.classList.add('exit-story-back');
+
+    setTimeout(() => {
+      // Hide Section 4
+      storyScreen.classList.add('hidden-screen');
+      storyScreen.classList.remove('active-story');
+      storyScreen.classList.remove('exit-story-back');
+
+      // Show Section 3
+      scheduleScreen.classList.remove('hidden-screen');
+      void scheduleScreen.offsetWidth;
+      scheduleScreen.classList.add('active-schedule');
+
+      isTransitioningStory = false;
+    }, 800);
+  }
+
+  // 8. Section 4 (Love Story) -> Section 5 (Wedding Gift) (Move Forward)
+  function triggerStoryExit() {
+    if (isTransitioningStory) return;
+    isTransitioningStory = true;
+
+    // Trigger Section 4 exit forward animations
+    storyScreen.classList.add('exit-story');
+
+    setTimeout(() => {
+      // Hide Section 4
+      storyScreen.classList.add('hidden-screen');
+      storyScreen.classList.remove('active-story');
+      storyScreen.classList.remove('exit-story');
+
+      // Show Section 5
+      giftScreen.classList.remove('hidden-screen');
+      void giftScreen.offsetWidth;
+      giftScreen.classList.add('active-gift');
+
+      isTransitioningStory = false;
+    }, 800);
+  }
+
+  let isTransitioningGift = false;
+
+  // 9. Section 5 (Wedding Gift) -> Section 4 (Love Story) (Move Backward)
+  function triggerGiftExitBack() {
+    if (isTransitioningGift) return;
+    isTransitioningGift = true;
+
+    // Trigger Section 5 exit-back animations
+    giftScreen.classList.add('exit-gift-back');
+
+    setTimeout(() => {
+      // Hide Section 5
+      giftScreen.classList.add('hidden-screen');
+      giftScreen.classList.remove('active-gift');
+      giftScreen.classList.remove('exit-gift-back');
+
+      // Show Section 4
+      storyScreen.classList.remove('hidden-screen');
+      void storyScreen.offsetWidth;
+      storyScreen.classList.add('active-story');
+
+      isTransitioningGift = false;
+    }, 800);
+  }
+
+  // 10. Section 5 (Wedding Gift) -> Section 6 (Wishes) (Move Forward)
+  function triggerGiftExit() {
+    if (isTransitioningGift) return;
+    isTransitioningGift = true;
+
+    // Trigger Section 5 exit forward animations
+    giftScreen.classList.add('exit-gift');
+
+    setTimeout(() => {
+      // Hide Section 5
+      giftScreen.classList.add('hidden-screen');
+      giftScreen.classList.remove('active-gift');
+      giftScreen.classList.remove('exit-gift');
+
+      // Show Section 6
+      wishesScreen.classList.remove('hidden-screen');
+      void wishesScreen.offsetWidth;
+      wishesScreen.classList.add('active-wishes');
+
+      isTransitioningGift = false;
+    }, 800);
+  }
+
+  let isTransitioningWishes = false;
+
+  // 11. Section 6 (Wishes) -> Section 5 (Wedding Gift) (Move Backward)
+  function triggerWishesExitBack() {
+    if (isTransitioningWishes) return;
+    isTransitioningWishes = true;
+
+    // Trigger Section 6 exit-back animations
+    wishesScreen.classList.add('exit-wishes-back');
+
+    setTimeout(() => {
+      // Hide Section 6
+      wishesScreen.classList.add('hidden-screen');
+      wishesScreen.classList.remove('active-wishes');
+      wishesScreen.classList.remove('exit-wishes-back');
+
+      // Show Section 5
+      giftScreen.classList.remove('hidden-screen');
+      void giftScreen.offsetWidth;
+      giftScreen.classList.add('active-gift');
+
+      isTransitioningWishes = false;
+    }, 800);
+  }
+
+  // 12. Section 6 (Wishes) -> Section 7 (Thank You) (Move Forward)
+  function triggerWishesExit() {
+    if (isTransitioningWishes) return;
+    isTransitioningWishes = true;
+
+    // Trigger Section 6 exit forward animations
+    wishesScreen.classList.add('exit-wishes');
+
+    setTimeout(() => {
+      // Hide Section 6
+      wishesScreen.classList.add('hidden-screen');
+      wishesScreen.classList.remove('active-wishes');
+      wishesScreen.classList.remove('exit-wishes');
+
+      // Show Section 7
+      thankyouScreen.classList.remove('hidden-screen');
+      void thankyouScreen.offsetWidth;
+      thankyouScreen.classList.add('active-thankyou');
+
+      isTransitioningWishes = false;
+    }, 800);
+  }
+
+  let isTransitioningThankyou = false;
+
+  // 13. Section 7 (Thank You) -> Section 6 (Wishes) (Move Backward)
+  function triggerThankyouExitBack() {
+    if (isTransitioningThankyou) return;
+    isTransitioningThankyou = true;
+
+    // Trigger Section 7 exit-back animations
+    thankyouScreen.classList.add('exit-thankyou-back');
+
+    setTimeout(() => {
+      // Hide Section 7
+      thankyouScreen.classList.add('hidden-screen');
+      thankyouScreen.classList.remove('active-thankyou');
+      thankyouScreen.classList.remove('exit-thankyou-back');
+
+      // Show Section 6
+      wishesScreen.classList.remove('hidden-screen');
+      void wishesScreen.offsetWidth;
+      wishesScreen.classList.add('active-wishes');
+
+      isTransitioningThankyou = false;
+    }, 800);
+  }
+
   // --- Section 1 (Ar-Rum) Interaction Listeners ---
   arrumScreen.addEventListener('wheel', (e) => {
     if (e.deltaY > 0) {
@@ -484,16 +680,348 @@ document.addEventListener('DOMContentLoaded', () => {
   scheduleScreen.addEventListener('touchend', (e) => {
     const touchEndY = e.changedTouches[0].clientY;
     const diffY = touchStartScheduleY - touchEndY;
+    const isScrollAtBottom = scheduleCardsContainer.scrollHeight - scheduleCardsContainer.scrollTop <= scheduleCardsContainer.clientHeight + 5;
+    
     // Go backward if swiping down AND the cards list is scrolled to the top
     if (diffY < -50 && scheduleCardsContainer.scrollTop === 0) {
       triggerScheduleExitBack(); // Swipe down -> Go backward
     }
+    // Go forward if swiping up AND the cards list is scrolled to the bottom
+    else if (diffY > 50 && isScrollAtBottom) {
+      triggerScheduleExit(); // Swipe up -> Go forward
+    }
   }, { passive: true });
 
   scheduleScreen.addEventListener('wheel', (e) => {
+    const isScrollAtBottom = scheduleCardsContainer.scrollHeight - scheduleCardsContainer.scrollTop <= scheduleCardsContainer.clientHeight + 5;
+    
     // Go backward if scrolling up AND the cards list is scrolled to the top
     if (e.deltaY < 0 && scheduleCardsContainer.scrollTop === 0) {
       triggerScheduleExitBack(); // Scroll up -> Go backward
     }
+    // Go forward if scrolling down AND the cards list is scrolled to the bottom
+    else if (e.deltaY > 0 && isScrollAtBottom) {
+      triggerScheduleExit(); // Scroll down -> Go forward
+    }
   }, { passive: true });
+
+  // --- Section 4 (Love Story) Interaction Listeners ---
+  const storyTimelineContainer = document.querySelector('.story-timeline-container');
+  let touchStartStoryY = 0;
+
+  storyScreen.addEventListener('touchstart', (e) => {
+    touchStartStoryY = e.touches[0].clientY;
+  }, { passive: true });
+
+  storyScreen.addEventListener('touchend', (e) => {
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffY = touchStartStoryY - touchEndY;
+    const isScrollAtTop = !storyTimelineContainer || storyTimelineContainer.scrollTop === 0;
+    const isScrollAtBottom = !storyTimelineContainer || (storyTimelineContainer.scrollHeight - storyTimelineContainer.scrollTop <= storyTimelineContainer.clientHeight + 5);
+    
+    // Go backward if swiping down AND the timeline list is scrolled to the top
+    if (diffY < -50 && isScrollAtTop) {
+      triggerStoryExitBack(); // Swipe down -> Go backward
+    }
+    // Go forward if swiping up AND the timeline list is scrolled to the bottom
+    else if (diffY > 50 && isScrollAtBottom) {
+      triggerStoryExit(); // Swipe up -> Go forward
+    }
+  }, { passive: true });
+
+  storyScreen.addEventListener('wheel', (e) => {
+    const isScrollAtTop = !storyTimelineContainer || storyTimelineContainer.scrollTop === 0;
+    const isScrollAtBottom = !storyTimelineContainer || (storyTimelineContainer.scrollHeight - storyTimelineContainer.scrollTop <= storyTimelineContainer.clientHeight + 5);
+    
+    // Go backward if scrolling up AND the timeline list is scrolled to the top
+    if (e.deltaY < 0 && isScrollAtTop) {
+      triggerStoryExitBack(); // Scroll up -> Go backward
+    }
+    // Go forward if scrolling down AND the timeline list is scrolled to the bottom
+    else if (e.deltaY > 0 && isScrollAtBottom) {
+      triggerStoryExit(); // Scroll down -> Go forward
+    }
+  }, { passive: true });
+
+  // --- Section 5 (Wedding Gift) Interaction Listeners ---
+  const giftCardsContainer = document.querySelector('.gift-cards');
+  let touchStartGiftY = 0;
+
+  giftScreen.addEventListener('touchstart', (e) => {
+    touchStartGiftY = e.touches[0].clientY;
+  }, { passive: true });
+
+  giftScreen.addEventListener('touchend', (e) => {
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffY = touchStartGiftY - touchEndY;
+    const isScrollAtTop = !giftCardsContainer || giftCardsContainer.scrollTop === 0;
+    const isScrollAtBottom = !giftCardsContainer || (giftCardsContainer.scrollHeight - giftCardsContainer.scrollTop <= giftCardsContainer.clientHeight + 5);
+    
+    // Go backward if swiping down AND the gift list is scrolled to the top
+    if (diffY < -50 && isScrollAtTop) {
+      triggerGiftExitBack(); // Swipe down -> Go backward
+    }
+    // Go forward if swiping up AND the gift list is scrolled to the bottom
+    else if (diffY > 50 && isScrollAtBottom) {
+      triggerGiftExit(); // Swipe up -> Go forward
+    }
+  }, { passive: true });
+
+  giftScreen.addEventListener('wheel', (e) => {
+    const isScrollAtTop = !giftCardsContainer || giftCardsContainer.scrollTop === 0;
+    const isScrollAtBottom = !giftCardsContainer || (giftCardsContainer.scrollHeight - giftCardsContainer.scrollTop <= giftCardsContainer.clientHeight + 5);
+    
+    // Go backward if scrolling up AND the gift list is scrolled to the top
+    if (e.deltaY < 0 && isScrollAtTop) {
+      triggerGiftExitBack(); // Scroll up -> Go backward
+    }
+    // Go forward if scrolling down AND the gift list is scrolled to the bottom
+    else if (e.deltaY > 0 && isScrollAtBottom) {
+      triggerGiftExit(); // Scroll down -> Go forward
+    }
+  }, { passive: true });
+
+  // --- Clipboard Copy Feature ---
+  const copyButtons = document.querySelectorAll('.btn-copy');
+  copyButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetId = button.getAttribute('data-target');
+      const targetElement = document.getElementById(targetId);
+      if (!targetElement) return;
+
+      // Filter out icon element html tags if copying address or physical gifts
+      const textToCopy = targetElement.innerText || targetElement.textContent;
+      
+      navigator.clipboard.writeText(textToCopy.trim()).then(() => {
+        // Show temporary success feedback
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<i class="fa-solid fa-check"></i> Tersalin!';
+        button.style.background = 'linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%)'; // Green feedback
+        
+        setTimeout(() => {
+          button.innerHTML = originalHTML;
+          button.style.background = ''; // Restore original
+        }, 2000);
+      }).catch(err => {
+        console.error('Gagal menyalin rekening: ', err);
+      });
+    });
+  });
+
+  // --- Section 6 (Wishes & RSVP) Interaction Listeners ---
+  const wishesListContainer = document.getElementById('wishes-list');
+  let touchStartWishesY = 0;
+
+  wishesScreen.addEventListener('touchstart', (e) => {
+    touchStartWishesY = e.touches[0].clientY;
+  }, { passive: true });
+
+  wishesScreen.addEventListener('touchend', (e) => {
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffY = touchStartWishesY - touchEndY;
+    const isScrollAtTop = !wishesListContainer || wishesListContainer.scrollTop === 0;
+    const isScrollAtBottom = !wishesListContainer || (wishesListContainer.scrollHeight - wishesListContainer.scrollTop <= wishesListContainer.clientHeight + 5);
+    
+    // Go backward if swiping down AND the wishes list is scrolled to the top
+    if (diffY < -50 && isScrollAtTop) {
+      triggerWishesExitBack(); // Swipe down -> Go backward
+    }
+    // Go forward if swiping up AND the wishes list is scrolled to the bottom
+    else if (diffY > 50 && isScrollAtBottom) {
+      triggerWishesExit(); // Swipe up -> Go forward
+    }
+  }, { passive: true });
+
+  wishesScreen.addEventListener('wheel', (e) => {
+    const isScrollAtTop = !wishesListContainer || wishesListContainer.scrollTop === 0;
+    const isScrollAtBottom = !wishesListContainer || (wishesListContainer.scrollHeight - wishesListContainer.scrollTop <= wishesListContainer.clientHeight + 5);
+    
+    // Go backward if scrolling up AND the wishes list is scrolled to the top
+    if (e.deltaY < 0 && isScrollAtTop) {
+      triggerWishesExitBack(); // Scroll up -> Go backward
+    }
+    // Go forward if scrolling down AND the wishes list is scrolled to the bottom
+    else if (e.deltaY > 0 && isScrollAtBottom) {
+      triggerWishesExit(); // Scroll down -> Go forward
+    }
+  }, { passive: true });
+
+  // --- Section 7 (Thank You) Interaction Listeners ---
+  let touchStartThankyouY = 0;
+
+  thankyouScreen.addEventListener('touchstart', (e) => {
+    touchStartThankyouY = e.touches[0].clientY;
+  }, { passive: true });
+
+  thankyouScreen.addEventListener('touchend', (e) => {
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffY = touchStartThankyouY - touchEndY;
+    
+    // Go backward if swiping down
+    if (diffY < -50) {
+      triggerThankyouExitBack(); // Swipe down -> Go backward
+    }
+  }, { passive: true });
+
+  thankyouScreen.addEventListener('wheel', (e) => {
+    // Go backward if scrolling up
+    if (e.deltaY < 0) {
+      triggerThankyouExitBack(); // Scroll up -> Go backward
+    }
+  }, { passive: true });
+
+  // --- Wishes Board / RSVP Logic ---
+  const wishesForm = document.getElementById('wishes-form');
+  const wishesList = document.getElementById('wishes-list');
+  const wishesCountEl = document.getElementById('wishes-count');
+
+  // Pre-load default wishes if not present in local storage
+  const defaultWishes = [
+    {
+      name: "Andi & Keluarga",
+      rsvp: "Hadir",
+      message: "Selamat menempuh hidup baru Laila & Majnun! Semoga menjadi keluarga yang sakinah, mawaddah, warahmah.",
+      date: new Date('2026-06-20T10:00:00').toLocaleString()
+    },
+    {
+      name: "Siti Rahma",
+      rsvp: "Hadir",
+      message: "Selamat ya! Lancar-lancar sampai hari H. Semoga dilimpahi kebahagiaan selalu.",
+      date: new Date('2026-06-21T15:30:00').toLocaleString()
+    },
+    {
+      name: "Budi Santoso",
+      rsvp: "Tidak Hadir",
+      message: "Selamat berbahagia untuk kedua mempelai. Mohon maaf tidak bisa hadir langsung, namun doa kami menyertai.",
+      date: new Date('2026-06-22T08:15:00').toLocaleString()
+    }
+  ];
+
+  function getWishes() {
+    const stored = localStorage.getItem('wedding_wishes');
+    if (!stored) {
+      localStorage.setItem('wedding_wishes', JSON.stringify(defaultWishes));
+      return defaultWishes;
+    }
+    return JSON.parse(stored);
+  }
+
+  function saveWishes(wishes) {
+    localStorage.setItem('wedding_wishes', JSON.stringify(wishes));
+  }
+
+  function renderWishes() {
+    if (!wishesList || !wishesCountEl) return;
+    const wishes = getWishes();
+    
+    // Copy array so we don't mutate original
+    const wishesToRender = [...wishes];
+    
+    // Sort wishes so latest is at the top
+    wishesToRender.reverse();
+
+    wishesCountEl.innerText = wishesToRender.length;
+    wishesList.innerHTML = '';
+
+    wishesToRender.forEach(wish => {
+      const item = document.createElement('div');
+      item.className = 'wish-item';
+      
+      const rsvpClass = wish.rsvp.toLowerCase().replace(' ', '-');
+      
+      item.innerHTML = `
+        <div class="wish-item-header">
+          <span class="wish-item-name">${escapeHtml(wish.name)}</span>
+          <span class="wish-item-rsvp rsvp-${rsvpClass}">${wish.rsvp}</span>
+        </div>
+        <p class="wish-item-message">${escapeHtml(wish.message)}</p>
+      `;
+      wishesList.appendChild(item);
+    });
+  }
+
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  if (wishesForm) {
+    wishesForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const nameInput = document.getElementById('wish-name');
+      const rsvpSelect = document.getElementById('wish-rsvp');
+      const messageInput = document.getElementById('wish-message');
+      
+      const name = nameInput.value.trim();
+      const rsvp = rsvpSelect.value;
+      const message = messageInput.value.trim();
+      
+      if (!name || !rsvp || !message) return;
+      
+      const wishes = getWishes();
+      wishes.push({
+        name: name,
+        rsvp: rsvp,
+        message: message,
+        date: new Date().toLocaleString()
+      });
+      
+      saveWishes(wishes);
+      renderWishes();
+      
+      // Clear inputs
+      nameInput.value = '';
+      rsvpSelect.value = '';
+      messageInput.value = '';
+      
+      // Scroll wishes list to top to show new wish
+      if (wishesList) {
+        wishesList.scrollTop = 0;
+      }
+    });
+  }
+
+  // Load and render initially
+  renderWishes();
+
+  /* ==========================================================================
+     COUNTDOWN TIMER LOGIC (Targets August 17, 2026 10:00:00 WITA)
+     ========================================================================== */
+  const targetDate = new Date('August 17, 2026 10:00:00').getTime();
+  
+  const daysEl = document.getElementById('days');
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    if (difference <= 0) {
+      if (daysEl) daysEl.innerText = "00";
+      if (hoursEl) hoursEl.innerText = "00";
+      if (minutesEl) minutesEl.innerText = "00";
+      if (secondsEl) secondsEl.innerText = "00";
+      return;
+    }
+
+    const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+    if (daysEl) daysEl.innerText = d.toString().padStart(2, '0');
+    if (hoursEl) hoursEl.innerText = h.toString().padStart(2, '0');
+    if (minutesEl) minutesEl.innerText = m.toString().padStart(2, '0');
+    if (secondsEl) secondsEl.innerText = s.toString().padStart(2, '0');
+  }
+
+  updateCountdown(); // Run once initially
+  setInterval(updateCountdown, 1000);
 });

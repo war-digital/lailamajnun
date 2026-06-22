@@ -237,16 +237,38 @@
       <!-- Content Container -->
       <div class="schedule-container">
         
-        <!-- Header -->
-        <h2 class="schedule-title animate-schedule-header">Rangkaian Acara</h2>
+
+        <!-- Save the Date & Countdown Timer -->
+        <div class="countdown-section animate-schedule-countdown">
+          <h3 class="countdown-title">Save The Date</h3>
+          <div id="countdown" class="countdown-timer">
+            <div class="time-block">
+              <span id="days" class="time-val">00</span>
+              <span class="time-lbl">Hari</span>
+            </div>
+            <div class="time-block">
+              <span id="hours" class="time-val">00</span>
+              <span class="time-lbl">Jam</span>
+            </div>
+            <div class="time-block">
+              <span id="minutes" class="time-val">00</span>
+              <span class="time-lbl">Menit</span>
+            </div>
+            <div class="time-block">
+              <span id="seconds" class="time-val">00</span>
+              <span class="time-lbl">Detik</span>
+            </div>
+          </div>
+        </div>
         
         <!-- Cards Container -->
         <div class="schedule-cards">
           
-          <!-- Mappacci Card Wrapper -->
+          <!-- Mappacci Card Wrapper (Kubah Atas) -->
           <div class="card-anim-wrapper animate-card-1">
             <div class="schedule-card mappacci-card">
               <div class="card-content">
+                <div class="card-ornament">✦ ⚜ ✦</div>
                 <h3 class="card-event-title">Mappacci</h3>
                 <p class="card-date">Malam Kamis, 17 Agustus 2026</p>
                 <p class="card-time"><i class="fa-regular fa-clock"></i> 19.30 WITA - Selesai</p>
@@ -258,10 +280,25 @@
             </div>
           </div>
 
-          <!-- Akad Nikah Card Wrapper -->
+          <!-- Akad Nikah Card Wrapper (Segi Empat) -->
           <div class="card-anim-wrapper animate-card-2">
-            <div class="schedule-card akad-card">
+            <!-- Left Half -->
+            <div class="schedule-card akad-card akad-split-left">
               <div class="card-content">
+                <div class="card-ornament">✦ ⚜ ✦</div>
+                <h3 class="card-event-title">Akad Nikah</h3>
+                <p class="card-date">Kamis, 17 Agustus 2026</p>
+                <p class="card-time"><i class="fa-regular fa-clock"></i> 10.00 WITA - Selesai</p>
+                <p class="card-location"><i class="fa-solid fa-house-chimney"></i> Kediaman Mempelai Wanita</p>
+                <a href="https://maps.google.com/?q=Kediaman+Mempelai+Wanita" target="_blank" class="card-map-btn">
+                  <i class="fa-solid fa-map-location-dot"></i> Lihat Lokasi
+                </a>
+              </div>
+            </div>
+            <!-- Right Half -->
+            <div class="schedule-card akad-card akad-split-right">
+              <div class="card-content">
+                <div class="card-ornament">✦ ⚜ ✦</div>
                 <h3 class="card-event-title">Akad Nikah</h3>
                 <p class="card-date">Kamis, 17 Agustus 2026</p>
                 <p class="card-time"><i class="fa-regular fa-clock"></i> 10.00 WITA - Selesai</p>
@@ -273,10 +310,11 @@
             </div>
           </div>
 
-          <!-- Resepsi Card Wrapper -->
+          <!-- Resepsi Card Wrapper (Kubah Bawah) -->
           <div class="card-anim-wrapper animate-card-3">
             <div class="schedule-card resepsi-card">
               <div class="card-content">
+                <div class="card-ornament">✦ ⚜ ✦</div>
                 <h3 class="card-event-title">Resepsi</h3>
                 <p class="card-date">Malam Jumat, 17 Agustus 2026</p>
                 <p class="card-time"><i class="fa-regular fa-clock"></i> 19.30 WITA - Selesai</p>
@@ -285,6 +323,237 @@
             </div>
           </div>
 
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- LOVE STORY SCREEN (Section 4 - Love Story Timeline) -->
+    <div id="story-screen" class="screen hidden-screen">
+      
+      <!-- Corner Scroll Ornaments using ornamen4.png (Static, Large) -->
+      <img src="ornamen4.png" alt="Decor TL" class="story-decor decor-tl">
+      <img src="ornamen4.png" alt="Decor TR" class="story-decor decor-tr">
+      <img src="ornamen4.png" alt="Decor BL" class="story-decor decor-bl">
+      <img src="ornamen4.png" alt="Decor BR" class="story-decor decor-br">
+
+      <!-- Content Container -->
+      <div class="story-container">
+        
+        <!-- Section Title -->
+        <div class="story-header animate-story-title">
+          <h2 class="story-main-title">Love Story</h2>
+          <div class="story-subtitle">Perjalanan Cinta Kami</div>
+        </div>
+
+        <!-- Scrollable Timeline Container -->
+        <div class="story-timeline-container">
+          <!-- Central/Left Vertical Line -->
+          <div class="timeline-line"></div>
+
+          <!-- Timeline Item 1: First Meeting -->
+          <div class="timeline-item animate-story-1">
+            <div class="timeline-dot"><i class="fa-solid fa-heart"></i></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Pertemuan Pertama</h3>
+              <span class="timeline-date">12 Maret 2022</span>
+              <p class="timeline-desc">
+                Takdir mempertemukan kami di sebuah perpustakaan kota. Tatapan mata pertama yang berujung pada percakapan hangat, mengawali kisah indah yang tak pernah kami duga sebelumnya.
+              </p>
+            </div>
+          </div>
+
+          <!-- Timeline Item 2: Proposal -->
+          <div class="timeline-item animate-story-2">
+            <div class="timeline-dot"><i class="fa-solid fa-ring"></i></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Lamaran (Khitbah)</h3>
+              <span class="timeline-date">15 Januari 2026</span>
+              <p class="timeline-desc">
+                Di hadapan kedua keluarga besar, kami memantapkan langkah untuk saling mengikat janji suci. Pertemuan dua hati yang kini siap melangkah ke jenjang yang lebih berkah.
+              </p>
+            </div>
+          </div>
+
+          <!-- Timeline Item 3: Marriage -->
+          <div class="timeline-item animate-story-3">
+            <div class="timeline-dot"><i class="fa-solid fa-dove"></i></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Pernikahan Suci</h3>
+              <span class="timeline-date">17 Agustus 2026</span>
+              <p class="timeline-desc">
+                Hari bersejarah di mana dua jiwa dipersatukan dalam ikatan pernikahan yang suci. Memulai lembaran baru sebagai suami istri, berjalan beriringan menuju surga-Nya.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- WEDDING GIFT SCREEN (Section 5 - Wedding Gift) -->
+    <div id="gift-screen" class="screen hidden-screen">
+      
+      <!-- ornamen11.png transparent frame overlay -->
+      <div class="gift-frame-overlay"></div>
+
+      <!-- Content Container -->
+      <div class="gift-container">
+        
+        <!-- Section Title -->
+        <div class="gift-header animate-gift-header">
+          <h2 class="gift-main-title">Wedding Gift</h2>
+          <p class="gift-intro">
+            Doa restu Anda adalah karunia terindah bagi kami. Namun jika Anda ingin memberikan tanda kasih, Anda dapat menyalurkannya melalui rekening di bawah ini:
+          </p>
+        </div>
+
+        <!-- Gift Cards Wrapper -->
+        <div class="gift-cards animate-gift-cards">
+          
+          <!-- Card 1: BCA -->
+          <div class="gift-card bca-gift-card">
+            <div class="gift-card-content">
+              <div class="bank-logo">BCA</div>
+              <div class="account-details">
+                <span class="account-label">No. Rekening:</span>
+                <span class="account-number" id="bca-number">1234567890</span>
+                <span class="account-name">a.n Laila Sari</span>
+              </div>
+              <button class="btn-copy" data-target="bca-number">
+                <i class="fa-regular fa-copy"></i> Salin Rekening
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Mandiri -->
+          <div class="gift-card mandiri-gift-card">
+            <div class="gift-card-content">
+              <div class="bank-logo">Mandiri</div>
+              <div class="account-details">
+                <span class="account-label">No. Rekening:</span>
+                <span class="account-number" id="mandiri-number">9876543210</span>
+                <span class="account-name">a.n Majnun Al Ayyub</span>
+              </div>
+              <button class="btn-copy" data-target="mandiri-number">
+                <i class="fa-regular fa-copy"></i> Salin Rekening
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3: Physical Gift Address -->
+          <div class="gift-card address-gift-card">
+            <div class="gift-card-content">
+              <div class="bank-logo"><i class="fa-solid fa-box-open"></i> Kirim Kado</div>
+              <div class="account-details">
+                <span class="account-label">Alamat Pengiriman:</span>
+                <span class="account-number address-text" id="gift-address">
+                  Jl. Cempaka Indah No. 45, RT 02/RW 03, Jakarta Pusat
+                </span>
+                <span class="account-name">Penerima: Laila Sari</span>
+              </div>
+              <button class="btn-copy" data-target="gift-address">
+                <i class="fa-regular fa-copy"></i> Salin Alamat
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- WISHES & RSVP SCREEN (Section 6 - Kirim Ucapan) -->
+    <div id="wishes-screen" class="screen hidden-screen">
+      
+      <!-- Corner Ornaments using ornamen8.png (Static, Large) -->
+      <img src="ornamen8.png" alt="Decor TL" class="wishes-decor decor-tl">
+      <img src="ornamen8.png" alt="Decor TR" class="wishes-decor decor-tr">
+      <img src="ornamen8.png" alt="Decor BL" class="wishes-decor decor-bl">
+      <img src="ornamen8.png" alt="Decor BR" class="wishes-decor decor-br">
+
+      <!-- Content Container -->
+      <div class="wishes-container">
+        
+        <!-- Section Title -->
+        <div class="wishes-header animate-wishes-header">
+          <h2 class="wishes-main-title">Ucapan & Doa</h2>
+          <p class="wishes-subtitle">Berikan doa restu Anda untuk kedua mempelai</p>
+        </div>
+
+        <!-- Form and List wrapper -->
+        <div class="wishes-content animate-wishes-content">
+          
+          <!-- Wishes Form -->
+          <form id="wishes-form" class="wishes-form">
+            <div class="form-group">
+              <input type="text" id="wish-name" class="form-input" placeholder="Nama Anda" required>
+            </div>
+            <div class="form-group">
+              <select id="wish-rsvp" class="form-input select-input" required>
+                <option value="" disabled selected>Konfirmasi Kehadiran</option>
+                <option value="Hadir">Hadir</option>
+                <option value="Tidak Hadir">Tidak Hadir</option>
+                <option value="Ragu-ragu">Ragu-ragu</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <textarea id="wish-message" class="form-input textarea-input" placeholder="Tulis ucapan & doa restu..." rows="2" required></textarea>
+            </div>
+            <button type="submit" class="btn-send-wish">
+              <i class="fa-solid fa-paper-plane"></i> Kirim Ucapan
+            </button>
+          </form>
+
+          <!-- Wishes Board / List -->
+          <div class="wishes-board-container">
+            <div class="wishes-board-header">
+              <span><i class="fa-regular fa-comments"></i> <span id="wishes-count">0</span> Ucapan</span>
+            </div>
+            <div id="wishes-list" class="wishes-list">
+              <!-- Wishes items will be populated here by JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- THANK YOU SCREEN (Section 7 - Ucapan Terima Kasih) -->
+    <div id="thankyou-screen" class="screen hidden-screen">
+      
+      <!-- Content Container -->
+      <div class="thankyou-container">
+        
+        <!-- Calligraphic ornament or header -->
+        <div class="thankyou-crest animate-thankyou-crest">
+          <img src="ornamen4.png" alt="Crest" class="thankyou-mini-crest">
+        </div>
+
+        <!-- Thank You Text -->
+        <div class="thankyou-text animate-thankyou-text">
+          <h2 class="thankyou-main-title">Terima Kasih</h2>
+          <p class="thankyou-intro">
+            Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu kepada kami yang sedang berbahagia.
+          </p>
+          <div class="thankyou-names">Laila & Majnun</div>
+        </div>
+
+        <!-- Couple Walking/Meeting in Center -->
+        <div class="thankyou-couple-container">
+          <img src="groom.png" alt="Groom" class="thankyou-groom animate-thankyou-groom">
+          <img src="bride.png" alt="Bride" class="thankyou-bride animate-thankyou-bride">
+        </div>
+
+        <!-- Developer Credit Footer -->
+        <div class="developer-credit animate-thankyou-credit">
+          <span>Created with <i class="fa-solid fa-heart"></i> by <a href="#" class="credit-link">WARDIGITAL</a></span>
         </div>
 
       </div>
